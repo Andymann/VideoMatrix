@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "VideoMatrix",
-        "version": "0.0.5",
+        "version": "0.0.6",
         "news": {
             "0.0.5": {
                 "de": "Initialer Mirror von Instalator"

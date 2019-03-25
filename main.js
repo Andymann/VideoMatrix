@@ -374,27 +374,27 @@ function CreateObject_Remote(){
 function CreateObject_Serial(){
     var arr = [];
     var interval, t = 1000;
-    adapter.getState('remote.0', function (err, state){
+    adapter.getState('commands.0', function (err, state){
         if ((err || !state)){
-            for (var key in REMOTE_CMDS) {
-                if(REMOTE_CMDS.hasOwnProperty(key)){
+            for (var key in COMMANDS) {
+                if(COMMANDS.hasOwnProperty(key)){
                     arr.push(key);
                 }
             }
             arr.forEach(function(cmd, i) {
                 interval = t * i;
                 setTimeout(function() {
-                    adapter.setObject('remote.' + cmd, {
+                    adapter.setObject('commands.' + cmd, {
                         type:   'state',
                         common: {
                             name: cmd,
-                            desc: 'remote key ' + cmd,
+                            desc: 'command key ' + cmd,
                             type: 'boolean',
                             role: 'button'
                         },
                         native: {}
                     });
-                    adapter.setState('remote.' + cmd, {val: false, ack: true});
+                    adapter.setState('commands.' + cmd, {val: false, ack: true});
                 }, interval);
             });
         }
