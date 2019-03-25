@@ -1,10 +1,10 @@
 {
-  "name": "iobroker.lgtv-rs",
+  "name": "iobroker.VideoMatrix",
   "version": "0.0.5",
   "description": "VideoMatrix Adapter with RS-232 to Ethernet gate",
   "author": {
     "name": "Andy Fischer",
-    "email": "info@andyland.info"
+    "email": "info@Andyland.info"
   },
   "contributors": [
     {
@@ -12,11 +12,11 @@
       "email": "vvvalt@mail.ru"
     }
   ],
-  "homepage": "www.andyland.info",
+  "homepage": "www.Andyland.info",
   "license": "MIT",
   "keywords": [
     "ioBroker",
-    "LG TV",
+    "VideoMatrix",
     "RS-232"
   ],
   "repository": {

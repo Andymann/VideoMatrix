@@ -1,7 +1,7 @@
 "use strict";
 
 var utils = require('@iobroker/adapter-core'); // Get common adapter utils
-var adapter = utils.adapter('lgtv-rs');
+var adapter = utils.adapter('VideoMatrix');
 var net = require('net');
 var lgtv_commands = require(__dirname + '/admin/commands.json'),
     COMMANDS = lgtv_commands.commands,

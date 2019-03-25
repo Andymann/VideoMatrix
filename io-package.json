@@ -1,33 +1,18 @@
 {
     "common": {
-        "name": "lgtv-rs",
+        "name": "VideoMatrix",
         "version": "0.0.5",
         "news": {
-            "0.0.4": {
-                "en": "fix error",
-                "de": "fix error",
-                "ru": "fix error",
-                "pt": "fix error",
-                "fr": "fix error",
-                "nl": "fix error"
+            "0.0.5": {
+                "de": "Initialer Mirror von Instalator"
             },
             "0.0.1": {
-                "en": "initial adapter",
-                "de": "Initiale Version",
-                "ru": "Первоначальный адаптер",
-                "pt": "Versão inicial",
-                "fr": "Version initiale",
-                "nl": "Eerste release"
+                "de": "Initiale Version"
             }
         },
-        "title": "ioBroker LG TV Adapter with RS-232 to Ethernet gate",
+        "title": "ioBroker VideoMatrix Adapter with RS-232 to Ethernet gate",
         "desc": {
-            "en": "Controls LG TV over RS232 interface",
-            "de": "Controls LG TV over RS232 interface",
-            "ru": "Управление LG TV через интерфейс RS232.",
-            "pt": "Controls LG TV over RS232 interface",
-            "fr": "Controls LG TV over RS232 interface",
-            "nl": "Controls LG TV over RS232 interface"
+            "de": "Controls VideoMatrix over RS232 interface"            
         },
         "license": "MIT",
         "platform": "Javascript/Node.js",
@@ -44,8 +29,8 @@
         "type": "multimedia"
     },
     "native": {
-        "host": "127.0.0.1",
-        "port": 23
+        "host": "192.168.1.223",
+        "port": 1024
     },
     "objects": [
 
@@ -56,7 +41,7 @@
             "type": "state",
             "common": {
                 "role": "indicator.connected",
-                "name": "if connected to LG TV",
+                "name": "if connected to VideoMatrix",
                 "type": "boolean",
                 "read": true,
                 "write": false,

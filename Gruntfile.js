@@ -35,14 +35,14 @@ module.exports = function (grunt) {
         if (fs.existsSync(__dirname + '/admin/lgtv-rs.png')) {
             fs.renameSync(__dirname + '/admin/lgtv-rs.png',              __dirname + '/admin/' + newname + '.png');
         }
-        if (fs.existsSync(__dirname + '/widgets/lgtv-rs.html')) {
-            fs.renameSync(__dirname + '/widgets/lgtv-rs.html',           __dirname + '/widgets/' + newname + '.html');
+        if (fs.existsSync(__dirname + '/widgets/VideoMatrix.html')) {
+            fs.renameSync(__dirname + '/widgets/VideoMatrix.html',           __dirname + '/widgets/' + newname + '.html');
         }
-        if (fs.existsSync(__dirname + '/widgets/lgtv-rs/js/lgtv-rs.js')) {
-            fs.renameSync(__dirname + '/widgets/lgtv-rs/js/lgtv-rs.js', __dirname + '/widgets/lgtv-rs/js/' + newname + '.js');
+        if (fs.existsSync(__dirname + '/widgets/VideoMatrix/js/VideoMatrix.js')) {
+            fs.renameSync(__dirname + '/widgets/VideoMatrix/js/VideoMatrix.js', __dirname + '/widgets/VideoMatrix/js/' + newname + '.js');
         }
-        if (fs.existsSync(__dirname + '/widgets/lgtv-rs')) {
-            fs.renameSync(__dirname + '/widgets/lgtv-rs',                __dirname + '/widgets/' + newname);
+        if (fs.existsSync(__dirname + '/widgets/VideoMatrix')) {
+            fs.renameSync(__dirname + '/widgets/VideoMatrix',                __dirname + '/widgets/' + newname);
         }
     }
 
@@ -100,19 +100,19 @@ module.exports = function (grunt) {
                 options: {
                     patterns: [
                         {
-                            match: /lgtv-rs/g,
+                            match: /VideoMatrix/g,
                             replacement: newname
                         },
                         {
-                            match: /Lgtv-rs/g,
-                            replacement: newname ? (newname[0].toUpperCase() + newname.substring(1)) : 'Lgtv-rs'
+                            match: /VideoMatrix/g,
+                            replacement: newname ? (newname[0].toUpperCase() + newname.substring(1)) : 'VideoMatrix'
                         },
                         {
-                            match: /instalator/g,
+                            match: /Andymann/g,
                             replacement: author
                         },
                         {
-                            match: /vvvalt@mail.ru/g,
+                            match: /info@andyland.info/g,
                             replacement: email
                         }
                     ]
