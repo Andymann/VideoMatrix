@@ -13,8 +13,8 @@ module.exports = function (grunt) {
     var iopackage = grunt.file.readJSON('io-package.json');
     var version   = (pkg && pkg.version) ? pkg.version : iopackage.common.version;
     var newname   = grunt.option('name');
-    var author    = grunt.option('author') || 'instalator';
-    var email     = grunt.option('email')  || 'vvvalt@mail.ru';
+    var author    = grunt.option('author') || 'Andy Fischer';
+    var email     = grunt.option('email')  || 'info@andyland.info';
     var fs        = require('fs');
 
     // check arguments
