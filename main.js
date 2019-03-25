@@ -84,8 +84,8 @@ adapter.on('message', function (obj) {
 adapter.on('ready', function () {
     main();
     CreateObject_Remote();
-    //CreateObject_Serial();
-    json();
+    CreateObject_Serial();
+    //json();
 });
 
 
