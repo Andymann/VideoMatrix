@@ -83,8 +83,9 @@ adapter.on('message', function (obj) {
 
 adapter.on('ready', function () {
     main();
-    CreatObject();
-    //json();
+    CreateObject_Remote();
+    //CreateObject_Serial();
+    json();
 });
 
 
@@ -340,7 +341,37 @@ function err(e){
     }
 }
 
-function CreatObject(){
+function CreateObject_Remote(){
+    var arr = [];
+    var interval, t = 1000;
+    adapter.getState('remote.0', function (err, state){
+        if ((err || !state)){
+            for (var key in REMOTE_CMDS) {
+                if(REMOTE_CMDS.hasOwnProperty(key)){
+                    arr.push(key);
+                }
+            }
+            arr.forEach(function(cmd, i) {
+                interval = t * i;
+                setTimeout(function() {
+                    adapter.setObject('remote.' + cmd, {
+                        type:   'state',
+                        common: {
+                            name: cmd,
+                            desc: 'remote key ' + cmd,
+                            type: 'boolean',
+                            role: 'button'
+                        },
+                        native: {}
+                    });
+                    adapter.setState('remote.' + cmd, {val: false, ack: true});
+                }, interval);
+            });
+        }
+    });
+}
+
+function CreateObject_Serial(){
     var arr = [];
     var interval, t = 1000;
     adapter.getState('remote.0', function (err, state){
