@@ -1,6 +1,6 @@
 // Dictionary (systemDictionary is global variable from adapter-settings.js)
 systemDictionary = {
-	"VideoMatrix adapter settings": {"de": "VideoMatrix adapter settings"},
+	"VideoMatrix adapter settings": {"de": "VideoMatrix Adapter Settings"},
 	"host":                   	{"de": "host"},
 	"port":                   	{"de": "port"},
 	"login":                   	{"de": "login"},
