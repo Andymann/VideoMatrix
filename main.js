@@ -133,13 +133,13 @@ function connect(cb){
     var in_msg = '';
     var host = adapter.config.host ? adapter.config.host : '192.168.1.56';
     var port = adapter.config.port ? adapter.config.port : 23;
-    adapter.log.debug('LG TV ' + 'connect to: ' + host + ':' + port);
+    adapter.log.debug('VideoMatrix ' + 'connect to: ' + host + ':' + port);
     var c = COMMAND_MAPPINGS['power'];
     var q = VALUE_MAPPINGS[c]['query']['value'];
     var check_cmd = c + ' 00 ' + q;
     lgtv = net.connect(port, host, function() {
         adapter.setState('info.connection', true, true);
-        adapter.log.info('LG TV connected to: ' + host + ':' + port);
+        adapter.log.info('VideoMatrix connected to: ' + host + ':' + port);
         connection = true;
         clearInterval(query);
         query = setInterval(function() {
@@ -155,7 +155,7 @@ function connect(cb){
             if(in_msg.length > 10){
                 in_msg = in_msg.substring(0,10);
             }
-            adapter.log.debug("LG TV incomming: " + in_msg);
+            adapter.log.debug("VideoMatrix incomming: " + in_msg);
             parse(in_msg);
             in_msg = '';
         }
@@ -173,7 +173,7 @@ function connect(cb){
 
     lgtv.on('close', function(e) {
         if(connection){
-            err('LG TV disconnected');
+            err('VideoMatrix disconnected');
         }
         reconnect();
     });
@@ -328,7 +328,7 @@ function err(e){
     if (e){
         clearInterval(query);
         if(!~e.indexOf('ECONNREFUSED')){
-            adapter.log.error("LG TV " + e);
+            adapter.log.error("VideoMatrix " + e);
             adapter.log.error('Error socket: Reconnect after 15 sec...');
             adapter.setState('info.connection', false, true);
             connection = false;

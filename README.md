@@ -1,5 +1,7 @@
 ![Logo](admin/lg_admin.png)
-ioBroker LG TV RS232 adapter
+VideoMatrix rs232 Adapter based on ioBroker LG TV RS232 adapter.
+Original readme is following. This is a wolr in progres. All credits due to automator. 
+this is my first fork/ clone/ anything. Be gentle.
 =================
 ![Number of Installations](http://iobroker.live/badges/lgtv-rs-installed.svg) ![Number of Installations](http://iobroker.live/badges/lgtv-rs-stable.svg) [![NPM version](http://img.shields.io/npm/v/iobroker.lgtv-rs.svg)](https://www.npmjs.com/package/iobroker.lgtv-rs)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.lgtv-rs.svg)](https://www.npmjs.com/package/iobroker.lgtv-rs)
