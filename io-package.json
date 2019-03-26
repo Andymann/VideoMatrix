@@ -1,9 +1,10 @@
 {
     "common": {
         "name": "VideoMatrix",
-        "version": "0.0.6",
-        "news": {
-			"0.0.6": {
+        "version": "0.0.7",
+        "news": 
+	    {
+	    "0.0.6": {
                 "de": "Erste Tweaks"
             },
             "0.0.5": {
