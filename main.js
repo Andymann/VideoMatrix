@@ -9,6 +9,7 @@ var matrix_commands = require(__dirname + '/admin/commands.json'),
     COMMAND_MAPPINGS = matrix_commands.command_mappings,
     VALUE_MAPPINGS = matrix_commands.value_mappings,
     REMOTE_CMDS = matrix_commands.remote;
+    MATRIX_CDMS = matrix_commands.videomatrix;
 var matrix, recnt, connection = false;
 var query = null;
 var tabu = false;
@@ -72,6 +73,11 @@ adapter.on('stateChange', function (id, state) {
 
             var cmd = COMMAND_MAPPINGS[command];
             var key;
+ 	    if(name == 'videomatrix'){
+                key = JSON.stringify(state.val) + MATRIX_CMDS[command];
+                send(key);
+            }
+
             if(name == 'remote'){
                 key = 'mc 00 ' + REMOTE_CMDS[command];
                 send(key);
@@ -383,35 +389,38 @@ function CreateObject_Remote(){
 }
 
 function CreateObject_MatrixCMD(){
-/*
     var arr = [];
     var interval, t = 1000;
-    adapter.getState('remote.0', function (err, state){
+    adapter.getState('videomatrix.0', function (err, state){
         if ((err || !state)){
-            for (var key in REMOTE_CMDS) {
-                if(REMOTE_CMDS.hasOwnProperty(key)){
+            for (var key in MATRIX_CMDS) {
+                if(MATRIX_CMDS.hasOwnProperty(key)){
+		    adapter.log.debug( 'CreateObject_Remote() Key:' + JSON.stringify(key) );
                     arr.push(key);
                 }
             }
             arr.forEach(function(cmd, i) {
+		adapter.log.debug('CreateObject_Remote() arrForEach CMD:' + JSON.stringify(cmd)  );
                 interval = t * i;
                 setTimeout(function() {
                     adapter.setObject('remote.' + cmd, {
                         type:   'state',
                         common: {
                             name: cmd,
-                            desc: 'remote key ' + cmd,
-                            type: 'boolean',
-                            role: 'button'
+                            desc: 'matrix key ' + cmd,
+                            type: 'number',
+                            role: 'level',
+			    read: true,
+			    write:true
                         },
                         native: {}
                     });
-                    adapter.setState('remote.' + cmd, {val: false, ack: true});
+		    //adapter.setState(BOSE_ID_VOLUME, {val: actualVolume, ack: true});
+                    adapter.setState('videomatrix.' + cmd, {val: val, ack: true});
                 }, interval);
             });
         }
     });
-*/
 }
 
 

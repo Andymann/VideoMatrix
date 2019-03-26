@@ -934,4 +934,17 @@
     "toption" :          "21",
     "subtitle" :         "39"
   }
+  "videomatrix":{
+    "Output 1" :       "V1.",
+    "Output 2" :       "V2.",
+    "Output 3" :       "V3.",
+    "Output 4" :       "V4.",
+    "Output 5" :       "V5.",
+    "Output 6" :       "V6.",
+    "Output 7" :       "V7.",
+    "Output 8" :       "V8.",
+    "Output 9" :       "V9.",
+    "Output 10" :       "V10."
+
+  }
 }
