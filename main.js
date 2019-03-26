@@ -8,8 +8,8 @@ var matrix_commands = require(__dirname + '/admin/commands.json'),
     COMMANDS = matrix_commands.commands,
     COMMAND_MAPPINGS = matrix_commands.command_mappings,
     VALUE_MAPPINGS = matrix_commands.value_mappings,
-    REMOTE_CMDS = matrix_commands.remote;
-    MATRIX_CDMS = matrix_commands.videomatrix;
+    REMOTE_CMDS = matrix_commands.remote,
+    MATRIX_CMDS = matrix_commands.videomatrix;
 var matrix, recnt, connection = false;
 var query = null;
 var tabu = false;
@@ -452,7 +452,7 @@ function CreateObject_Serial(){
                         },
                         native: {}
                     });
-                    adapter.setState('commands.' + cmd, {val: false, ack: true});
+                    adapter.setState('commands.' + cmd, {val: 0, ack: true});
                 }, interval);
             });
         }
