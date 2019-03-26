@@ -21,6 +21,7 @@ adapter.on('ready', function () {
     main();
     CreateObject_Remote();
     CreateObject_Serial();
+    CreateObject_MatrixCMD();
     //json();
 });
 
@@ -356,6 +357,39 @@ function CreateObject_Remote(){
         if ((err || !state)){
             for (var key in REMOTE_CMDS) {
                 if(REMOTE_CMDS.hasOwnProperty(key)){
+		    adapter.log.debug( 'CreateObject_Remote() Key:' + JSON.stringify(key) );
+                    arr.push(key);
+                }
+            }
+            arr.forEach(function(cmd, i) {
+		adapter.log.debug('CreateObject_Remote() arrForEach CMD:' + JSON.stringify(cmd)  );
+                interval = t * i;
+                setTimeout(function() {
+                    adapter.setObject('remote.' + cmd, {
+                        type:   'state',
+                        common: {
+                            name: cmd,
+                            desc: 'remote key ' + cmd,
+                            type: 'boolean',
+                            role: 'button'
+                        },
+                        native: {}
+                    });
+                    adapter.setState('remote.' + cmd, {val: false, ack: true});
+                }, interval);
+            });
+        }
+    });
+}
+
+function CreateObject_MatrixCMD(){
+/*
+    var arr = [];
+    var interval, t = 1000;
+    adapter.getState('remote.0', function (err, state){
+        if ((err || !state)){
+            for (var key in REMOTE_CMDS) {
+                if(REMOTE_CMDS.hasOwnProperty(key)){
                     arr.push(key);
                 }
             }
@@ -377,13 +411,17 @@ function CreateObject_Remote(){
             });
         }
     });
+*/
 }
 
+
+
 //----Andy 1
+
 function CreateObject_Serial(){
     var arr = [];
     var interval, t = 1000;
-    adapter.getState('btCommands.0', function (err, state){
+    adapter.getState('commands.0', function (err, state){
         if ((err || !state)){
             for (var key in COMMANDS) {
                 if(COMMANDS.hasOwnProperty(key)){
@@ -396,10 +434,11 @@ function CreateObject_Serial(){
                     adapter.setObject('commands.' + cmd, {
                         type:   'state',
                         common: {
-                            name: cmd,
+                            name: 'select input for output #1',
                             desc: 'command key ' + cmd,
-                            type: 'number',
-			    write:'true',
+                            type: 'boolean',
+			    //write: true,
+			    //read: true,
                             role: 'button'
                         },
                         native: {}
