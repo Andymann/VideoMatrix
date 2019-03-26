@@ -1,6 +1,6 @@
 {
   "name": "iobroker.VideoMatrix",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "VideoMatrix Adapter with RS-232 to Ethernet gate",
   "author": {
     "name": "Andy Fischer",
@@ -17,7 +17,8 @@
   "keywords": [
     "ioBroker",
     "VideoMatrix",
-    "RS-232"
+    "RS-232",
+	"HDMI"
   ],
   "repository": {
     "type": "git",

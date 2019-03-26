@@ -1,23 +1,33 @@
 "use strict";
+//----https://github.com/ioBroker/ioBroker/wiki/Adapter-Development-Documentation#packagejson
 
 var utils = require('@iobroker/adapter-core'); // Get common adapter utils
 var adapter = utils.adapter('VideoMatrix');
 var net = require('net');
-var lgtv_commands = require(__dirname + '/admin/commands.json'),
-    COMMANDS = lgtv_commands.commands,
-    COMMAND_MAPPINGS = lgtv_commands.command_mappings,
-    VALUE_MAPPINGS = lgtv_commands.value_mappings,
-    REMOTE_CMDS = lgtv_commands.remote;
-var lgtv, recnt, connection = false;
+var matrix_commands = require(__dirname + '/admin/commands.json'),
+    COMMANDS = matrix_commands.commands,
+    COMMAND_MAPPINGS = matrix_commands.command_mappings,
+    VALUE_MAPPINGS = matrix_commands.value_mappings,
+    REMOTE_CMDS = matrix_commands.remote;
+var matrix, recnt, connection = false;
 var query = null;
 var tabu = false;
 var polling_time = 5000;
 var states = {}, old_states = {};
 var querycmd = [];
 
+//----Entry Point
+adapter.on('ready', function () {
+    main();
+    CreateObject_Remote();
+    CreateObject_Serial();
+    //json();
+});
+
+//----Exit Point
 adapter.on('unload', function (callback) {
-    if(lgtv){
-        lgtv.destroy();
+    if(matrix){
+        matrix.destroy();
     }
     try {
         adapter.log.info('cleaned everything up...');
@@ -27,13 +37,25 @@ adapter.on('unload', function (callback) {
     }
 });
 
+function main() {
+    adapter.subscribeStates('*');
+    for (var key in COMMANDS) {
+        if(COMMANDS.hasOwnProperty(key)){
+            if (COMMANDS[key].values.hasOwnProperty('ff') && COMMANDS[key]['name'] !== 'power'){
+                querycmd.push(key + ' 00 ' + 'ff');
+            }
+        }
+    }
+    connect();
+}
+
 adapter.on('objectChange', function (id, obj) {
     // Warning, obj can be null if it was deleted
-    adapter.log.info('objectChange ' + id + ' ' + JSON.stringify(obj));
+    adapter.log.info('adapter.on.objectChange ' + id + ' ' + JSON.stringify(obj));
 });
 
 adapter.on('stateChange', function (id, state) {
-    if (connection){
+	if (connection){
         if (state && !state.ack) {
             tabu = true;
             adapter.log.debug('stateChange ' + id + ' ' + JSON.stringify(state));
@@ -81,19 +103,14 @@ adapter.on('message', function (obj) {
     }
 });
 
-adapter.on('ready', function () {
-    main();
-    CreateObject_Remote();
-    CreateObject_Serial();
-    //json();
-});
+
 
 
 function json(){
     var cmd_mappings = {};
     var val_mappings = {};
     var key;
-    var file = lgtv_commands;
+    var file = matrix_commands;
     for (key in COMMANDS) {
         if(COMMANDS.hasOwnProperty(key)){
             cmd_mappings[COMMANDS[key]['name']] = key;
@@ -117,17 +134,7 @@ function json(){
     file.value_mappings = val_mappings;
 }
 
-function main() {
-    adapter.subscribeStates('*');
-    for (var key in COMMANDS) {
-        if(COMMANDS.hasOwnProperty(key)){
-            if (COMMANDS[key].values.hasOwnProperty('ff') && COMMANDS[key]['name'] !== 'power'){
-                querycmd.push(key + ' 00 ' + 'ff');
-            }
-        }
-    }
-    connect();
-}
+
 
 function connect(cb){
     //adapter.config.host = '192.168.1.56';
@@ -138,7 +145,7 @@ function connect(cb){
     var c = COMMAND_MAPPINGS['power'];
     var q = VALUE_MAPPINGS[c]['query']['value'];
     var check_cmd = c + ' 00 ' + q;
-    lgtv = net.connect(port, host, function() {
+    matrix = net.connect(port, host, function() {
         adapter.setState('info.connection', true, true);
         adapter.log.info('VideoMatrix connected to: ' + host + ':' + port);
         connection = true;
@@ -150,7 +157,7 @@ function connect(cb){
         }, polling_time);
         if(cb){cb();}
     });
-    lgtv.on('data', function(chunk) {
+    matrix.on('data', function(chunk) {
         in_msg += chunk;
         if(in_msg[9] =='x'){
             if(in_msg.length > 10){
@@ -165,14 +172,14 @@ function connect(cb){
         }
     });
 
-    lgtv.on('error', function(e) {
+    matrix.on('error', function(e) {
         if (e.code == "ENOTFOUND" || e.code == "ECONNREFUSED" || e.code == "ETIMEDOUT") {
-            lgtv.destroy();
+            matrix.destroy();
         }
         err(e);
     });
 
-    lgtv.on('close', function(e) {
+    matrix.on('close', function(e) {
         if(connection){
             err('VideoMatrix disconnected');
         }
@@ -239,7 +246,7 @@ function get_commands(){
         setTimeout(function() {
             cmd = cmd + '\n\r';
             adapter.log.debug('Send Command: ' + cmd);
-            lgtv.write(cmd);
+            matrix.write(cmd);
         }, interval);
     });
 }
@@ -248,7 +255,7 @@ function send(cmd){
     if (cmd !== undefined){
         cmd = cmd + '\n\r';
         adapter.log.debug('Send Command: ' + cmd);
-        lgtv.write(cmd);
+        matrix.write(cmd);
         tabu = false;
     }
 }
@@ -256,7 +263,7 @@ function send(cmd){
 function setObject(name, val){
     var type = 'string';
     var role = 'media';
-    adapter.log.debug('name:' + name);
+    adapter.log.debug('setObject() name:' + name);
     var odj_cmd = COMMANDS[COMMAND_MAPPINGS[name]];
     var obj_val;
     if(VALUE_MAPPINGS[COMMAND_MAPPINGS[name]]){
@@ -315,7 +322,7 @@ function getack(s){
 function reconnect(){
     clearInterval(query);
     clearTimeout(recnt);
-    lgtv.destroy();
+    matrix.destroy();
     adapter.setState('info.connection', false, true);
     adapter.log.info('Reconnect after 60 sec...');
     connection = false;
@@ -341,6 +348,7 @@ function err(e){
     }
 }
 
+//----Original
 function CreateObject_Remote(){
     var arr = [];
     var interval, t = 1000;
@@ -371,6 +379,7 @@ function CreateObject_Remote(){
     });
 }
 
+//----Andy 1
 function CreateObject_Serial(){
     var arr = [];
     var interval, t = 1000;

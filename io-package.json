@@ -3,8 +3,11 @@
         "name": "VideoMatrix",
         "version": "0.0.6",
         "news": {
+			"0.0.6": {
+                "de": "Erste Tweaks"
+            },
             "0.0.5": {
-                "de": "Initialer Mirror von Instalator"
+                "de": "Mirror von Instalator"
             },
             "0.0.1": {
                 "de": "Initiale Version"
@@ -23,8 +26,8 @@
         ],
         "enabled": true,
         "extIcon": "https://raw.githubusercontent.com/instalator/ioBroker.lgtv-rs/master/admin/lg.png",
-        "keywords": ["VideoMatrix", "rs232", "tv"],
-        "readme": "https://github.com/instalator/ioBroker.lgtv-rs/blob/master/README.md",
+        "keywords": ["VideoMatrix", "rs232", "tv", "hdmi", "bTouch"],
+        "readme": "https://github.com/Andymann/VideoMatrix/blob/master/README.md",
         "loglevel": "info",
         "type": "multimedia"
     },
