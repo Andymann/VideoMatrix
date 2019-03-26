@@ -403,7 +403,7 @@ function CreateObject_MatrixCMD(){
 		adapter.log.debug('CreateObject_Remote() arrForEach CMD:' + JSON.stringify(cmd)  );
                 interval = t * i;
                 setTimeout(function() {
-                    adapter.setObject('remote.' + cmd, {
+                    adapter.setObject('videomatrix.' + cmd, {
                         type:   'state',
                         common: {
                             name: cmd,
