@@ -383,7 +383,7 @@ function CreateObject_Remote(){
 function CreateObject_Serial(){
     var arr = [];
     var interval, t = 1000;
-    adapter.getState('commands.0', function (err, state){
+    adapter.getState('btCommands.0', function (err, state){
         if ((err || !state)){
             for (var key in COMMANDS) {
                 if(COMMANDS.hasOwnProperty(key)){
@@ -398,7 +398,8 @@ function CreateObject_Serial(){
                         common: {
                             name: cmd,
                             desc: 'command key ' + cmd,
-                            type: 'boolean',
+                            type: 'number',
+			    write:'true',
                             role: 'button'
                         },
                         native: {}
