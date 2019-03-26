@@ -416,7 +416,7 @@ function CreateObject_MatrixCMD(){
                         native: {}
                     });
 		    //adapter.setState(BOSE_ID_VOLUME, {val: actualVolume, ack: true});
-                    adapter.setState('videomatrix.' + cmd, {val: val, ack: true});
+                    adapter.setState('videomatrix.' + cmd, {val: false, ack: true});
                 }, interval);
             });
         }
