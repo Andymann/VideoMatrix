@@ -20,8 +20,8 @@ var querycmd = [];
 //----Entry Point
 adapter.on('ready', function () {
     main();
-    CreateObject_Remote();
-    CreateObject_Serial();
+//    CreateObject_Remote();
+//    CreateObject_Serial();
     CreateObject_MatrixCMD();
     //json();
 });
