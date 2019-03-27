@@ -1,4 +1,4 @@
-![Logo](admin/lg_admin.png)
+<!-- ![Logo](admin/lg_admin.png)-->
 VideoMatrix rs232 Adapter based on ioBroker LG TV RS232 adapter.
 Original readme is following. This is a work in progress. All credits due to automator. 
 this is my first fork/ clone/ anything. Be gentle.
